@@ -1,0 +1,67 @@
+// datasource: הגדרת החיבור למסד הנתונים PostgreSQL
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// generator: יצירת ה-Prisma Client לשימוש בקוד ה-Node.js 
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --- Enums ---
+
+enum GameStatus {
+  WAITING   // המשחק ממתין לשחקנים
+  LIVE      // המשחק פעיל
+  FINISHED  // המשחק הסתיים
+}
+
+enum ParticipantRole {
+  PLAYER
+  ADMIN
+}
+
+// --- Models ---
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+
+  // קשר של אחד לרבים לטבלת המשתתפים 
+  participations GameParticipant[]
+
+  @@map("users") // טבלאות ברבים במסד הנתונים
+}
+
+model Game {
+  id        Int        @id @default(autoincrement())
+  status    GameStatus @default(WAITING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt // מתעדכן אוטומטית בכל שינוי בסטטוס
+
+  // קשר של אחד לרבים למשתתפים 
+  participants GameParticipant[]
+
+  @@map("games")
+}
+
+model GameParticipant {
+  id     Int             @id @default(autoincrement())
+  score  Int             @default(0)
+  role   ParticipantRole @default(PLAYER)
+
+  // Foreign Keys
+  userId Int
+  gameId Int
+
+  // Relations: הגדרת הקשרים מול המודלים האחרים 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  // אילוץ ייחודיות: מונע ממשתמש להירשם פעמיים לאותו משחק 
+  @@unique([userId, gameId])
+  @@map("game_participants")
+}

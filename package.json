@@ -1,0 +1,19 @@
+
+{
+  "name": "game-backend-task",
+  "version": "1.0.0",
+  "description": "Backend assessment task for game management system",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "docker:start": "npm run db:migrate && npm run start"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.x.x"
+  },
+  "devDependencies": {
+    "prisma": "^5.x.x"
+  }
+}
