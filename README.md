@@ -1,22 +1,22 @@
 # Game Management System - Backend Task
 
-מערכת לניהול משחקים ומשתתפים המבוססת על Node.js ו-Prisma ORM.
+A game management and participant tracking system built with Node.js and Prisma ORM.
 
-## 🛠 טכנולוגיות
+## 🛠 Tech Stack
 * **Runtime**: Node.js 18.
 * **ORM**: Prisma.
 * **Database**: PostgreSQL 15.
 * **Infrastructure**: Docker & Docker Compose.
 
-## 🚀 הרצה מהירה
-כדי להקים את מסד הנתונים ולהריץ את האפליקציה, יש להריץ:
+##  Quick Start
+To spin up the database and run the application, execute:
 `docker-compose up --build`
-הפקודה מבצעת אוטומטית: הרמת DB, סנכרון סכימה (db push) והרצת main.js.
+This command automatically handles database provisioning, schema synchronization (db push), and starts the main application.
 
-## 📋 עיקרי המערכת
-* **Schema**: מודל נתונים הכולל משתמשים, משחקים וטבלת קישור למשתתפים (Many-to-Many).
-* **Business Logic**: שירות `joinGame` המבצע בדיקות תקינות על סטטוס המשחק ומניעת כפל רישום.
-* **Auto-Seed**: המערכת מייצרת נתוני בדיקה ראשוניים (User & Game) עם ההפעלה.
+##  System Highlights
+* **Schema**: Features a relational model including Users, Games, and a Many-to-Many Participant join table.
+* **Business Logic**: Includes a `joinGame` service with validations for game status and duplicate registration prevention.
+* **Auto-Seed**: Automatically generates initial test data (User & Game) upon startup.
 
 ---
-*הערה: הוגדרו מעקפי SSL ב-Dockerfile ובהרצה לצורך תאימות בסביבות מסוננות.*
+*Note: SSL bypasses (NODE_TLS_REJECT_UNAUTHORIZED) are configured in the Dockerfile and environment for compatibility in filtered network environments.*
