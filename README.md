@@ -2,7 +2,7 @@
 
 A game management and participant tracking system built with Node.js and Prisma ORM.
 
-## 🛠 Tech Stack
+##  Tech Stack
 * **Runtime**: Node.js 18.
 * **ORM**: Prisma.
 * **Database**: PostgreSQL 15.
